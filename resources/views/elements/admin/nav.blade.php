@@ -4,7 +4,7 @@
     </div>
     <ul>
         <li class="p-4 hover:bg-gray-100"><a href="{{ route('admin.home') }}">{{ __('Home')}}</a></li>
-        {{-- <li><a href="{{ route('admin.products') }}">{{ __('Products')}}</a></li> --}}
+        <li class="p-4 hover:bg-gray-100"><a href="{{ route('admin.products') }}">{{ __('Products')}}</a></li>
         {{-- <li><a href="{{ route('admin.orders') }}">{{ __('Orders')}}</a></li> --}}
         <li class="p-4 hover:bg-gray-100"><a href="{{ route('admin.customers') }}">{{ __('Customers')}}</a></li>
         {{-- <li><a href="{{ route('admin.settings') }}">{{ __('Settings')}}</a></li> --}}

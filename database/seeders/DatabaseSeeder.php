@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Models\Profile;
 use App\Models\User;
 use Database\Factories\ProfileFactory;
@@ -17,6 +18,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        \Illuminate\Support\Facades\DB::unprepared(file_get_contents(database_path('sql/countries.sql')));
+        \Illuminate\Support\Facades\DB::unprepared(file_get_contents(database_path('sql/states.sql')));
+        \Illuminate\Support\Facades\DB::unprepared(file_get_contents(database_path('sql/cities.sql')));
+
+
         $u = User::factory()->create([
             'email'=>'test@test.com',
             'password'=>Hash::make('gfhjkm')
@@ -26,5 +32,7 @@ class DatabaseSeeder extends Seeder
         User::factory(50)->create()->each(function($u){
             $u->profile()->save(Profile::factory()->make());
         });
+
+        Product::factory(50)->create();
     }
 }

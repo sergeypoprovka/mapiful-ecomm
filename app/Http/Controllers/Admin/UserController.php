@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $customers = User::paginate(20);
+        $customers = User::with('profile')->paginate(env('PER_PAGE'));
         return view('admin.users.index', compact('customers'));
     }
 

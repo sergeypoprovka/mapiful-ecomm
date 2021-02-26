@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix'=>'admin'], function(){
     Route::get('/', [HomeController::class, 'index'])->name('admin.home');
-    Route::resource('user', UserController::class)->names([
+    Route::resource('users', UserController::class)->names([
         'index'=>'admin.customers',
         'show'=>'admin.customers.show',
         'store'=>'admin.customers.store',
@@ -25,5 +26,14 @@ Route::group(['prefix'=>'admin'], function(){
         'edit'=>'admin.customers.edit',
         'update'=>'admin.customers.update',
         'destroy'=>'admin.customers.delete'
+    ]);
+    Route::resource('products', ProductController::class)->names([
+        'index'=>'admin.products',
+        'show'=>'admin.products.show',
+        'store'=>'admin.products.store',
+        'create'=>'admin.products.create',
+        'edit'=>'admin.products.edit',
+        'update'=>'admin.products.update',
+        'destroy'=>'admin.products.delete'
     ]);
 });
