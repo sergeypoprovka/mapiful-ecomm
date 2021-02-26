@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $customers = User::paginate(20);
+        return view('admin.users.index', compact('customers'));
     }
 
     /**
@@ -24,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -35,7 +38,44 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email'=>'required|email|unique:users',
+            'password'=>'required|confirmed',
+            'firstname'=>'nullable|string',
+            'lastname'=>'nullable|string',
+            'middlename'=>'nullable|string',
+            'address_1'=>'nullable|string',
+            'address_2'=>'nullable|string',
+            'phone'=>'nullable|string',
+            'country'=>'nullable|integer',
+            'state'=>'nullable|integer',
+            'city'=>'nullable|integer',
+            'postcode'=>'nullable|string',
+            'phone'=>'nullable|string',
+        ]);
+
+        $user = User::create([
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password)
+        ]);
+        if($user){
+            $profile = $user->profile()->create([
+                'firstname'=>$request->firstname,
+                'lastname'=>$request->lastname,
+                'middlename'=>$request->middlename,
+                'address_1'=>$request->address_1,
+                'address_2'=>$request->address_2,
+                'phone'=>$request->phone,
+                'country_id'=>$request->country,
+                'state_id'=>$request->state,
+                'city_id'=>$request->city,
+                'postcode'=>$request->postcode,
+            ]);
+            if($profile){
+                session()->flash('success', __('Customer created'));
+                return redirect(route('admin.customers'));
+            }
+        }
     }
 
     /**
@@ -44,9 +84,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -55,9 +95,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -67,9 +107,43 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'email'=>'required|email|unique:users,email,'.$user->id,
+            'password'=>'nullable|confirmed',
+            'firstname'=>'nullable|string',
+            'lastname'=>'nullable|string',
+            'middlename'=>'nullable|string',
+            'address_1'=>'nullable|string',
+            'address_2'=>'nullable|string',
+            'phone'=>'nullable|string',
+            'country'=>'nullable|integer',
+            'state'=>'nullable|integer',
+            'city'=>'nullable|integer',
+            'postcode'=>'nullable|string',
+            'phone'=>'nullable|string',
+        ]);
+
+        $user->email = $request->email;
+        if($request->password) $user->password = Hash::make($request->password);
+        $user->profile->firstname = $request->firstname;
+        $user->profile->lastname = $request->lastname;
+        $user->profile->middlename = $request->middlename;
+        $user->profile->address_1 = $request->address_1;
+        $user->profile->address_2 = $request->address_2;
+        $user->profile->phone = $request->phone;
+        $user->profile->postcode = $request->postcode;
+        $user->profile->country_id = $request->country;
+        $user->profile->state_id = $request->state;
+        $user->profile->city_id = $request->city;
+
+        if($user->save()){
+            if($user->profile->save()){
+                session()->flash('success', __('Customer updated'));
+                return redirect(route('admin.customers'));
+            }
+        }
     }
 
     /**
@@ -78,8 +152,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        if($user->delete()){
+            session()->flash('danger', __('Customer removed'));
+            return redirect(route('admin.customers'));
+        }
     }
 }

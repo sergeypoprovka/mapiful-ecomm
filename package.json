@@ -25,8 +25,10 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@tailwindcss/forms": "^0.2.1",
         "autoprefixer": "^10.2.4",
         "laravel-mix-tailwind": "^0.1.2",
-        "tailwindcss": "^2.0.3"
+        "tailwindcss": "^2.0.3",
+        "tailwindcss-plugins": "^0.3.0"
     }
 }
