@@ -13,6 +13,12 @@ class Product extends Model
 
     protected $guarded = [];
 
+    protected $with = ['product_attributes'];
+
+    public function product_attributes(){
+        return $this->belongsToMany(ProductAttribute::class)->withPivot(['value']);
+    }
+
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()

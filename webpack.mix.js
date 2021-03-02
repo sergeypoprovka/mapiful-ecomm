@@ -17,3 +17,7 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .vue()
     .tailwind();
+
+mix.version();
+
+mix.browserSync('http://ecomm.test')
