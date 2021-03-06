@@ -17,8 +17,10 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->text('description')->nullable();
             $table->string('thumbnail')->nullable();
+            $table->json('options')->nullable();
             $table->float('price')->nullable();
             $table->string('sku')->nullable();
             $table->boolean('in_stock')->default(1);

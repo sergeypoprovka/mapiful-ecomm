@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductAttribute;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(env('PER_PAGE'));
+        $products = Product::parent()->paginate(env('PER_PAGE'));
         return view('admin.products.index', compact('products'));
     }
 
@@ -26,7 +27,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $attributes = ProductAttribute::general()->get();
+        return view('admin.products.create', compact('attributes'));
     }
 
     /**
@@ -37,7 +39,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'name'=>'required|string'
+        ]);
+
+        $product = Product::create([
+            'name'=>$request->name
+        ]);
+
+        if($product) return $product;
+
+        return response()->json(['message'=>__('Product was not created')], 400);
     }
 
     /**

@@ -13,10 +13,18 @@ class Product extends Model
 
     protected $guarded = [];
 
-    protected $with = ['product_attributes'];
+    protected $with = ['attributes'];
 
-    public function product_attributes(){
-        return $this->belongsToMany(ProductAttribute::class)->withPivot(['value']);
+    public function attributes(){
+        return $this->belongsToMany(ProductAttribute::class);
+    }
+
+    public function variations(){
+        return $this->hasMany(Product::class,'parent_id','id');
+    }
+
+    public function scopeParent($query){
+        return $query->where('parent_id', NULL);
     }
 
     public function getSlugOptions() : SlugOptions

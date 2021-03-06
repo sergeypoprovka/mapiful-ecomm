@@ -23,8 +23,18 @@ html, body{
     &-danger{
         @apply text-white bg-red-600 hover:bg-red-700 focus:ring-red-500;
     }
+    &-success{
+        @apply text-white bg-green-600 hover:bg-green-700 focus:ring-red-500;
+    }
     &-xs{
         @apply py-1 px-2 text-xs;
+    }
+}
+
+.swal2{
+    &-popup{
+        @apply shadow-2xl;
+        padding: 5em;
     }
 }
 

@@ -5,12 +5,14 @@ namespace Database\Seeders;
 use App\Models\Country;
 use App\Models\Product;
 use App\Models\ProductAttribute;
+use App\Models\ProductAttributeValue;
 use App\Models\Profile;
 use App\Models\Tax;
 use App\Models\TaxGroup;
 use App\Models\User;
 use Database\Factories\ProfileFactory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -22,6 +24,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
         \Illuminate\Support\Facades\DB::unprepared(file_get_contents(database_path('sql/countries.sql')));
         \Illuminate\Support\Facades\DB::unprepared(file_get_contents(database_path('sql/states.sql')));
         \Illuminate\Support\Facades\DB::unprepared(file_get_contents(database_path('sql/cities.sql')));
@@ -39,10 +42,25 @@ class DatabaseSeeder extends Seeder
 
         Product::factory(50)->create();
 
-        ProductAttribute::factory()->create(['name'=>'width', 'default_value'=>'30']);
-        ProductAttribute::factory()->create(['name'=>'height', 'default_value'=>'50']);
-        ProductAttribute::factory()->create(['name'=>'print_width', 'default_value'=>'5400']);
-        ProductAttribute::factory()->create(['name'=>'print_height', 'default_value'=>'7200']);
+        ProductAttribute::factory()->create(['name'=>'size']);
+        ProductAttribute::factory()->create(['name'=>'orientation']);
+        ProductAttribute::factory()->create(['name'=>'print_width','used_for_variations'=> 1]);
+        ProductAttribute::factory()->create(['name'=>'print_height','used_for_variations'=> 1]);
+        ProductAttribute::factory()->create(['name'=>'print_height_in_unit','used_for_variations'=> 1]);
+        ProductAttribute::factory()->create(['name'=>'print_width_in_unit','used_for_variations'=> 1]);
+        ProductAttribute::factory()->create(['name'=>'dimension_units','used_for_variations'=> 1]);
+        
+        DB::unprepared("INSERT INTO ecomm.product_product_attribute (product_id,product_attribute_id,created_at,updated_at) VALUES
+        (1,1,NULL,NULL),
+        (1,2,NULL,NULL),
+        (2,1,NULL,NULL),
+        (2,2,NULL,NULL),
+        (3,2,NULL,NULL)");
+
+
+        ProductAttribute::all()->each(function($pa){
+            $pa->values()->saveMany(ProductAttributeValue::factory()->count(rand(3,7))->make());
+        });
 
         TaxGroup::factory()->create(['name'=>"Standart rates"]);
         TaxGroup::factory()->create(['name'=>"Maps rates"]);
