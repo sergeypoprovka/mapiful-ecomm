@@ -71,7 +71,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $attributes = ProductAttribute::general()->get();
+        $product = Product::with('variations')->where('slug',$id)->first();
+        return view('admin.products.edit', compact('product','attributes'));
     }
 
     /**

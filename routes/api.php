@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('preGetVariations', [ProductController::class,'preGetVariations']);
 Route::post('createVariations', [ProductController::class,'createVariations']);
+
+Route::get('getStates/{country}', [LocationController::class,'getStates']);
+Route::get('getCities/{state}', [LocationController::class,'getCities']);

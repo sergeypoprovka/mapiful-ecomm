@@ -3,7 +3,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 export default {
-    props:['attrs'],
+    props:['attrs','prod'],
     data(){
         return {
             product: null,
@@ -68,6 +68,10 @@ export default {
     },
     mounted(){
         this.createVariationModels()
+        if(this.prod){ 
+            this.product = this.prod
+            this.form.name = this.product.name
+        }
     }
 }
 </script>
