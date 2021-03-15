@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,5 @@ Route::post('createVariations', [ProductController::class,'createVariations']);
 
 Route::get('getStates/{country}', [LocationController::class,'getStates']);
 Route::get('getCities/{state}', [LocationController::class,'getCities']);
+
+Route::post('switchLang', [HomeController::class, 'switchLang']);

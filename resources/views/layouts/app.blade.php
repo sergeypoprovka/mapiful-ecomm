@@ -22,12 +22,15 @@
 <body>
     <div id="app" class="h-full">
         <div class="grid grid-cols-6 gap-0 h-full">
-            <div class="admin-nav shadow-lg">
+            <div class="admin-nav shadow-lg z-50">
                 @include('elements.admin.nav')
             </div>
-            <div class="admin-content col-span-5 p-8">
-                @include('elements.message')
-                @yield('content')
+            <div class="admin-content col-span-5">
+                @include('elements.admin.header')
+                <div class="p-8">
+                    @include('elements.message')
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>

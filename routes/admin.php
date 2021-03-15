@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix'=>'admin'], function(){
+Route::group(['prefix'=>'admin','middleware'=>['language']], function(){
     Route::get('/', [HomeController::class, 'index'])->name('admin.home');
     Route::resource('users', UserController::class)->names([
         'index'=>'admin.customers',

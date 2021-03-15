@@ -8,6 +8,11 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -21,6 +26,7 @@ window.Vue = require('vue').default;
 
 Vue.component('create-product', require('./components/CreateProduct.vue').default);
 Vue.component('customer', require('./components/Customer.vue').default);
+Vue.component('language-switcher', require('./components/LanguageSwitcher.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
