@@ -31593,6 +31593,62 @@ html, body {
   }
 }
 
+.admin-content {
+  --tw-text-opacity: 1;
+  color: rgba(75, 85, 99, var(--tw-text-opacity));
+}
+
+.admin-nav {
+  background: #2c3647;
+}
+
+.admin-nav .sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.admin-nav .sidebar__logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-transform: uppercase;
+}
+
+.admin-nav .sidebar__logo img {
+  margin-right: 1rem;
+  width: 2rem;
+}
+
+.admin-nav .sidebar ul li:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-nav .sidebar ul li a {
+  display: flex;
+  align-items: center;
+}
+
+.admin-nav .sidebar ul li a i {
+  margin-right: 1rem;
+}
+
+.admin-nav .sidebar ul li button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.admin-nav .sidebar ul li button i {
+  margin-right: 1rem;
+}
+
 @media (min-width: 640px){
   .sm\:container{
     width: 100%;

@@ -15,17 +15,17 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"crossorigin="anonymous" />
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app" class="h-full">
-        <div class="grid grid-cols-6 gap-0 h-full">
-            <div class="admin-nav shadow-lg z-50">
+        <div class="grid grid-cols-12 gap-0 h-full">
+            <div class="admin-nav z-50 col-span-3 text-white">
                 @include('elements.admin.nav')
             </div>
-            <div class="admin-content col-span-5">
+            <div class="admin-content col-span-9">
                 @include('elements.admin.header')
                 <div class="p-8">
                     @include('elements.message')

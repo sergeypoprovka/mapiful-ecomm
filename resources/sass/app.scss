@@ -46,3 +46,36 @@ html, body{
         @apply mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md;
     }
 }
+
+.admin-content{
+    @apply text-gray-600;
+}
+
+.admin-nav{
+    background: #2c3647;
+    .sidebar{
+        @apply flex flex-col justify-between h-full;
+        &__logo{
+            @apply flex flex-row uppercase items-center mb-4 py-4 px-4;
+            img{
+                @apply w-8 mr-4;
+            }
+        }
+        ul{
+            li{
+                &:hover{
+                    background: rgba(255,255,255,0.05);
+                }
+                a{
+                    @apply flex items-center;
+                    i{ @apply mr-4; }
+                }
+                button{
+                    @apply w-full;
+                    @apply flex items-center;
+                    i{ @apply mr-4; }
+                }
+            }
+        }
+    }
+}
